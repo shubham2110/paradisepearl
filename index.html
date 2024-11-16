@@ -26,6 +26,7 @@
         h1 {
             text-align: center;
             color: #333;
+            font-size: 1.5rem; /* Adjust font size for mobile */
         }
 
         .form-container {
@@ -37,7 +38,7 @@
         }
 
         input[type="text"], textarea {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ddd;
@@ -46,8 +47,9 @@
         }
 
         textarea {
-            resize: vertical;
-            height: 100px;
+            resize: none; /* Disable resizing */
+            height: 50px;
+            overflow: hidden; /* Hide extra content */
         }
 
         button {
@@ -96,16 +98,64 @@
         }
 
         textarea.issue-input {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 1rem;
-            resize: none; /* Disable manual resizing */
+            resize: none; /* Disable resizing */
             overflow: hidden; /* Hide extra content */
-            height: 30px; /* Initial small height */
-            line-height: 1.5; /* Line height for readability */
+            height: 40px; /* Adjusted for mobile */
+            line-height: 1.4; /* Line height for readability */
+        }
+
+        .refresh-btn {
+            float: right;
+            margin-top: -40px;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            font-size: 0.85rem;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .refresh-btn:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+                box-shadow: none; /* Remove shadow for smaller screens */
+                border: 1px solid #ddd; /* Add subtle border */
+            }
+
+            button {
+                padding: 10px;
+                font-size: 0.9rem; /* Adjust button font size for mobile */
+            }
+
+            h1 {
+                font-size: 1.25rem; /* Adjust heading size */
+            }
+
+            textarea.issue-input {
+                font-size: 0.9rem; /* Smaller font for mobile */
+                height: 35px; /* Smaller default height */
+            }
+
+            .refresh-btn {
+                font-size: 0.75rem; /* Smaller font for the refresh button */
+                padding: 8px 10px;
+            }
         }
     </style>
 </head>
