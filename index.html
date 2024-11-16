@@ -220,13 +220,23 @@
             updateIssueList();
         }
 
+        let lastETag = null;
         // Fetch open issues from GitHub
         async function loadIssuesFromAPI() {
-            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/issues?state=open`, {
-                headers: { Accept: "application/vnd.github.v3+json" },
+            const headers = {
+                 Authorization: `token ${githubToken}`,
+                 Accept: "application/vnd.github.v3+json",
+            };
+
+            if (lastETag) {
+                headers["If-None-Match"] = lastETag;
+            }
+
+            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/issues?state=open`, { headers ,
             });
 
             if (response.ok) {
+                lastETag = response.headers.get("ETag");
                 const githubIssues = await response.json();
 
                 const localIssues = githubIssues.map(issue => {
@@ -280,7 +290,7 @@
         });
 
         
-        let refreshInterval = 5000; // Initial refresh interval (5 seconds)
+        let refreshInterval = 60000; // Initial refresh interval (5 seconds)
         let refreshTimer; // To store the interval timer
 
         function handleIssueInput(input) {
@@ -309,7 +319,7 @@
 
                 if (elapsedTime >= 2 * 60 * 1000) { // After 2 minutes
                     clearInterval(refreshTimer); // Clear the current interval
-                    refreshInterval = 60000; // Set interval to 1 minute
+                    refreshInterval = 300000; // Set interval to 1 minute
                     refreshTimer = setInterval(loadIssuesFromAPI, refreshInterval); // Start new interval
                 }
 
@@ -326,4 +336,3 @@
 
 </body>
 </html>
-
