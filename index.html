@@ -15,12 +15,12 @@
 
             /* Flash effect for comments container */
             .flash-effect {
-                animation: flashAnimation 1s ease-in-out;
+                animation: flashAnimation 2s ease-in-out;
             }
             
             @keyframes flashAnimation {
                 0% {
-                    background-color: yellow;
+                    background-color: red;
                 }
                 100% {
                     background-color: transparent;
@@ -436,7 +436,7 @@
                         // Remove the class after the animation ends
                         setTimeout(() => {
                             commentsContainer.classList.remove('flash-effect');
-                        }, 1000); // Adjust the duration as needed
+                        }, 3000); // Adjust the duration as needed
                     } catch (error) {
                         console.error("Error fetching comments:", error);
                         commentsContainer.innerHTML = "<p>Error loading comments.</p>";
