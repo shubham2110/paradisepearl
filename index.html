@@ -322,7 +322,7 @@
                     const dateTime = new Date(issue.createdAt).toLocaleString();
                     const syncingText = issue.timeout ? `<span class="syncing">Syncing in Progress</span>` : "";
 
-                    console.log(issue.comments_url);
+                    console.log(issue);
 
                     const issueItem = document.createElement("div");
                     issueItem.classList.add("issue-item");
