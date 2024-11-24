@@ -336,14 +336,14 @@
                     issueItem.innerHTML = `
                         <a
                             href="javascript:void(0);"
-                            onclick="expandIssue('${issue.comments_url}', document.getElementById("discussclick"))"
+                            onclick="expandIssue('${issue.comments_url}', document.getElementById('discussclick${issue.number}'))"
                         >
                         <strong>${issue.body}</strong>
                         </a>
                         <small>
                             Posted by: Flat ${flatNumber} on ${dateTime}
                             <a 
-                            id="discussclick"
+                            id="discussclick${issue.number}"
                             href="javascript:void(0);" 
                             class="discuss-link" 
                             onclick="expandIssue('${issue.comments_url}', this)"
