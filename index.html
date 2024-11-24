@@ -338,7 +338,7 @@
                         <a
                             style="text-decoration: none;"
                             href="javascript:void(0);"
-                            onclick="expandIssue('${issue.comments_url}', document.getElementById('discussclick${issue.number}'))"
+                            onclick="event.stopPropagation(); expandIssue('${issue.comments_url}', document.getElementById('discussclick${issue.number}'))"
                         >
                         <strong>${issue.body}</strong>
                         </a>
@@ -348,7 +348,7 @@
                             id="discussclick${issue.number}"
                             href="javascript:void(0);" 
                             class="discuss-link" 
-                            onclick="expandIssue('${issue.comments_url}', this)"
+                            onclick="event.stopPropagation(); expandIssue('${issue.comments_url}', this)"
                             style="margin-left: 10px; font-size: 0.8rem; text-decoration: underline; color: #007bff; cursor: pointer;"
                             >
                                 Discuss
@@ -357,6 +357,7 @@
                             href="${issue.html_url}" 
                             target="_blank"
                             class="discuss-link" 
+                            onclick="event.stopPropagation()"
                             style="margin-left: 10px; font-size: 0.8rem; text-decoration: underline; color: #007bff; cursor: pointer;"
                             >
                                  Issue ID:#${issue.number}
