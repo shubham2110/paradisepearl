@@ -380,40 +380,56 @@
                 const commentsContainer = issueItem.querySelector(".comments-container");
             
                 if (commentsContainer.style.display === "none") {
-                    // Fetch comments from the provided comments URL
-                    const response = await fetch(commentsUrl, {
-                        headers: {
-                            Authorization: `token ${githubToken}`,
-                            Accept: "application/vnd.github.v3+json",
-                        },
-                    });
+                    // Create and display a loading indicator
+                    const loadingIndicator = document.createElement('span');
+                    loadingIndicator.textContent = ' Loading...';
+                    button.parentNode.insertBefore(loadingIndicator, button.nextSibling);
             
-                    if (!response.ok) {
-                        console.error("Failed to fetch comments:", response.statusText);
+                    try {
+                        // Fetch comments from the provided comments URL
+                        const response = await fetch(commentsUrl, {
+                            headers: {
+                                Authorization: `token ${githubToken}`,
+                                Accept: "application/vnd.github.v3+json",
+                            },
+                        });
+            
+                        if (!response.ok) {
+                            console.error("Failed to fetch comments:", response.statusText);
+                            commentsContainer.innerHTML = "<p>Error loading comments.</p>";
+                            commentsContainer.style.display = "block";
+                            button.textContent = "Collapse";
+                            return;
+                        }
+            
+                        const comments = await response.json();
+            
+                        commentsContainer.innerHTML = comments.length
+                            ? comments.map(comment => `
+                                <div class="comment">
+                                    <p>${comment.body.replace(/\n/g, "<br />")}</p>
+                                    <small>${new Date(comment.created_at).toLocaleString()}</small>
+                                </div>
+                            `).join("")
+                            : "<p>No comments yet.</p>";
+            
+                        commentsContainer.style.display = "block";
+                        button.textContent = "Collapse";
+                    } catch (error) {
+                        console.error("Error fetching comments:", error);
                         commentsContainer.innerHTML = "<p>Error loading comments.</p>";
                         commentsContainer.style.display = "block";
                         button.textContent = "Collapse";
-                        return;
+                    } finally {
+                        // Remove the loading indicator
+                        loadingIndicator.remove();
                     }
-            
-                    const comments = await response.json();
-            
-                    commentsContainer.innerHTML = comments.length
-                        ? comments.map(comment => `
-                            <div class="comment">
-                                <p><strong></strong> ${comment.body.replace(/\n/g, "<br />")};</p>
-                                <small>${new Date(comment.created_at).toLocaleString()}</small>
-                            </div>
-                        `).join("")
-                        : "<p>No comments yet.</p>";
-            
-                    commentsContainer.style.display = "block";
-                    button.textContent = "Collapse";
                 } else {
                     commentsContainer.style.display = "none";
                     button.textContent = "Discuss";
                 }
             }
+
 
 
 
