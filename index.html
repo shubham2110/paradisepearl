@@ -391,7 +391,7 @@
                     commentsContainer.innerHTML = comments.length
                         ? comments.map(comment => `
                             <div class="comment">
-                                <p><strong></strong> ${comment.body}.replace(/\n/g, "<br />");</p>
+                                <p><strong></strong> ${comment.body.replace(/\n/g, "<br />")};</p>
                                 <small>${new Date(comment.created_at).toLocaleString()}</small>
                             </div>
                         `).join("")
