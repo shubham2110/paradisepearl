@@ -332,7 +332,7 @@
             
                     const issueItem = document.createElement("div");
                     issueItem.classList.add("issue-item");
-                    issueItem.setAttribute("onclick", `"expandIssue('${issue.comments_url}', document.getElementById('discussclick${issue.number}'"`)));
+                    issueItem.setAttribute("onclick", `"expandIssue('${issue.comments_url}', document.getElementById('discussclick${issue.number}'))"`);
                     
                     issueItem.innerHTML = `
                         <a
