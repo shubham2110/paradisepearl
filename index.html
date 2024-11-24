@@ -300,7 +300,7 @@
 
                     const localIssues = githubIssues.map(issue => {
                         const [uuid] = issue.title.split(" - ");
-                        return { uuid, title: issue.title, body: issue.body, createdAt: issue.created_at, comments_url: issue.comments_url };
+                        return { uuid, title: issue.title, body: issue.body, createdAt: issue.created_at, comments_url: issue.comments_url, html_url: issue.html_url };
                     });
 
                     saveToLocalStorage("LocalIssues", localIssues);
@@ -343,6 +343,14 @@
                             style="margin-left: 10px; font-size: 0.8rem; text-decoration: underline; color: #007bff; cursor: pointer;"
                             >
                                 Discuss
+                            </a>
+                            <a 
+                            href="javascript:void(0);" 
+                            class="discuss-link" 
+                            onclick="expandIssue('${issue.html_url}', this)"
+                            style="margin-left: 10px; font-size: 0.8rem; text-decoration: underline; color: #007bff; cursor: pointer;"
+                            >
+                                Admin
                             </a>
                         </small>
                         ${syncingText}
