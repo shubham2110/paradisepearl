@@ -13,7 +13,15 @@
             .logo-container img {
                 max-width: 100%;
                 height: auto;
-                max-height: 80px; /* Adjust to look good on both desktop and laptop */
+                max-height: 80px; /* Restrict the height for larger screens */
+            }
+            @media (max-width: 600px) {
+                .logo-container {
+                    margin-bottom: 10px; /* Reduce margin for smaller screens */
+                }
+                .logo-container img {
+                    max-height: 50px; /* Reduce height on mobile for better content visibility */
+                }
             }
         </style>
         
