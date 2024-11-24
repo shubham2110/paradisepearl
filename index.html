@@ -300,7 +300,7 @@
 
                     const localIssues = githubIssues.map(issue => {
                         const [uuid] = issue.title.split(" - ");
-                        return { uuid, title: issue.title, body: issue.body, createdAt: issue.created_at, comments_url: issue.comments_url, html_url: issue.html_url };
+                        return { uuid, title: issue.title, body: issue.body, createdAt: issue.created_at, comments_url: issue.comments_url, html_url: issue.html_url, number: issue.number };
                     });
 
                     saveToLocalStorage("LocalIssues", localIssues);
@@ -333,7 +333,7 @@
                     const issueItem = document.createElement("div");
                     issueItem.classList.add("issue-item");
                     issueItem.innerHTML = `
-                        <strong>${issue.body}</strong>
+                        <strong>${issue.number}. ${issue.body}</strong>
                         <small>
                             Posted by: Flat ${flatNumber} on ${dateTime}
                             <a 
