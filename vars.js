@@ -2,6 +2,4 @@
 
 
 
-const file_path = 'Z2l0aHViX3BhdF8xMUFDUTJNV1kwMGRlRXdNcG1DN2VrX3ZXM2t6RXJCaFhvVmhJbmdXQUVrbDRqMkJJYkZYczhvQWVPZVNoenRvNjM0Q0E2STZCRDJOaXoxNDdqCg==';
-
-const githubToken = atob(encodedSecret);
+const file_path = 'Z2l0aHViX3BhdF8xMUFDUTJNV1kwNHlhY05uNDZRZ2tZX2hucDhTck81SkJjbk53OFB3RDhqc2F1VHhHSk0xR0tOZE01TlNTT1hYMk1TUkxLSzNNTzF0c0hGRnc5Cg==';
