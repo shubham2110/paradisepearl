@@ -5,6 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Society Issues | सोसायटी की समस्याएं</title>
         <style>
+            .comment {
+                padding: 10px;
+                margin-bottom: 5px;
+                background-color: #f1f1f1;
+                border-radius: 4px;
+                border: 1px solid #ddd;
+            }
+        </style>
+        <style>
             body {
                 font-family: Arial, sans-serif;
                 background-color: #f7f9fc;
@@ -307,33 +316,87 @@
                 }
             }
 
-            // Update the issue list on the page
-            function updateIssueList() {
+          function updateIssueList() {
                 const issueList = document.getElementById("issueList");
                 issueList.innerHTML = "";
-
+            
                 const localIssues = loadFromLocalStorage("LocalIssues");
                 const unsyncedIssues = loadFromLocalStorage("LocalUnSyncedIssues");
-
+            
                 const allIssues = [...unsyncedIssues, ...localIssues];
-
+            
                 allIssues.forEach(issue => {
                     const flatNumber = issue.title.match(/Flat (.*?) -/)[1] || "Anonymous";
                     const dateTime = new Date(issue.createdAt).toLocaleString();
                     const syncingText = issue.timeout ? `<span class="syncing">Syncing in Progress</span>` : "";
-
-                    console.log(issue);
-
+            
                     const issueItem = document.createElement("div");
                     issueItem.classList.add("issue-item");
                     issueItem.innerHTML = `
                         <strong>${issue.body}</strong>
-                        <small>Posted by: Flat ${flatNumber} on ${dateTime}</small>
+                        <small>
+                            Posted by: Flat ${flatNumber} on ${dateTime}
+                            <button 
+                                class="discuss-btn" 
+                                onclick="expandIssue('${issue.comments_url}', this)"
+                                style="margin-left: 10px; padding: 2px 6px; font-size: 0.7rem; cursor: pointer; border: none; background-color: #007bff; color: white; border-radius: 3px;"
+                            >
+                                Discuss
+                            </button>
+                        </small>
                         ${syncingText}
+                        <div class="comments-container" style="display: none; margin-top: 10px;"></div>
                     `;
                     issueList.appendChild(issueItem);
                 });
             }
+
+            async function expandIssue(commentsUrl, button) {
+                if (!commentsUrl) {
+                    alert("Comments URL is missing or invalid.");
+                    return;
+                }
+            
+                const issueItem = button.closest(".issue-item");
+                const commentsContainer = issueItem.querySelector(".comments-container");
+            
+                if (commentsContainer.style.display === "none") {
+                    // Fetch comments from the provided comments URL
+                    const response = await fetch(commentsUrl, {
+                        headers: {
+                            Authorization: `token ${githubToken}`,
+                            Accept: "application/vnd.github.v3+json",
+                        },
+                    });
+            
+                    if (!response.ok) {
+                        console.error("Failed to fetch comments:", response.statusText);
+                        commentsContainer.innerHTML = "<p>Error loading comments.</p>";
+                        commentsContainer.style.display = "block";
+                        button.textContent = "Collapse";
+                        return;
+                    }
+            
+                    const comments = await response.json();
+            
+                    commentsContainer.innerHTML = comments.length
+                        ? comments.map(comment => `
+                            <div class="comment">
+                                <p><strong>${comment.user.login}:</strong> ${comment.body}</p>
+                                <small>${new Date(comment.created_at).toLocaleString()}</small>
+                            </div>
+                        `).join("")
+                        : "<p>No comments yet.</p>";
+            
+                    commentsContainer.style.display = "block";
+                    button.textContent = "Collapse";
+                } else {
+                    commentsContainer.style.display = "none";
+                    button.textContent = "Discuss";
+                }
+            }
+
+
 
             document.addEventListener("DOMContentLoaded", () => {
                 updateIssueList();
