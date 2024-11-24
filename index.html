@@ -333,12 +333,7 @@
                     const issueItem = document.createElement("div");
                     issueItem.classList.add("issue-item");
                     issueItem.innerHTML = `
-                        <a
-                        href="javascript:void(0);"
-                        onclick="expandIssue('${issue.comments_url}', this)"
-                        >
-                        <strong>${issue.body} (Issue ID:#${issue.number})</strong>
-                        </a>
+                        <strong>${issue.body}</strong>
                         <small>
                             Posted by: Flat ${flatNumber} on ${dateTime}
                             <a 
@@ -355,7 +350,7 @@
                             class="discuss-link" 
                             style="margin-left: 10px; font-size: 0.8rem; text-decoration: underline; color: #007bff; cursor: pointer;"
                             >
-                                Admin
+                                 Issue ID:#${issue.number}
                             </a>
                         </small>
                         ${syncingText}
