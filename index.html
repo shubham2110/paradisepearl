@@ -291,7 +291,7 @@
 
                     const localIssues = githubIssues.map(issue => {
                         const [uuid] = issue.title.split(" - ");
-                        return { uuid, title: issue.title, body: issue.body, createdAt: issue.created_at };
+                        return { uuid, title: issue.title, body: issue.body, createdAt: issue.created_at, comments_url: issue.comments_url };
                     });
 
                     saveToLocalStorage("LocalIssues", localIssues);
