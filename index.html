@@ -332,13 +332,9 @@
             
                     const issueItem = document.createElement("div");
                     issueItem.classList.add("issue-item");
-                    <script>
-                        document.getElementById("titleclick").addEventListener("click", function() {
-                                document.getElementById("discussclick").click();
-                            });
-                    </script>
+                    
                     issueItem.innerHTML = `
-                        <a id="titleclick"><strong>${issue.body}</strong></a>
+                        <strong>${issue.body}</strong>
                         <small>
                             Posted by: Flat ${flatNumber} on ${dateTime}
                             <a 
