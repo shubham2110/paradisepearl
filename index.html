@@ -334,7 +334,12 @@
                     issueItem.classList.add("issue-item");
                     
                     issueItem.innerHTML = `
+                        <a
+                            href="javascript:void(0);"
+                            onclick="expandIssue('${issue.comments_url}', document.getElementById("discussclick"))"
+                        >
                         <strong>${issue.body}</strong>
+                        </a>
                         <small>
                             Posted by: Flat ${flatNumber} on ${dateTime}
                             <a 
