@@ -332,11 +332,17 @@
             
                     const issueItem = document.createElement("div");
                     issueItem.classList.add("issue-item");
+                    <script>
+                        document.getElementById("titleclick").addEventListener("click", function() {
+                                document.getElementById("discussclick").click();
+                            });
+                    </script>
                     issueItem.innerHTML = `
-                        <strong>${issue.body}</strong>
+                        <a id="titleclick"><strong>${issue.body}</strong></a>
                         <small>
                             Posted by: Flat ${flatNumber} on ${dateTime}
                             <a 
+                            id="discussclick"
                             href="javascript:void(0);" 
                             class="discuss-link" 
                             onclick="expandIssue('${issue.comments_url}', this)"
